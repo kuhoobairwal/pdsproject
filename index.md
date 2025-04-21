@@ -34,12 +34,32 @@ Doing visual analysis showed a couple different insights.
 – This scatter plot explores the relationship between the number of funds managed by a firm and its current assets under management (AUM). Each point represents a fund, color-coded by its age.
 
 <p align="center">
-  <img src="assets/aum_vs_funds_scatter.png" alt="Scatter plot of AUM vs Number of Funds with Fund Age coloring" width="700">
+  <img src="aum_vs_funds_scatter.png" alt="Scatter plot of AUM vs Number of Funds with Fund Age coloring" width="700">
 </p>
 
 We observe a **slightly positive trend** — as the number of funds increases, the AUM tends to increase as well. However, the relationship is **weak and noisy**, with a wide spread of AUM values even among firms managing a similar number of funds.
 
 The color gradient suggests that **fund age does not strongly influence AUM**, though older funds (in yellow) are scattered throughout the range. This implies that factors beyond longevity and fund count may be more significant in driving asset accumulation.
+
+### Type vs AUM
+This grouped table highlights the average AUM for funds operating at different investment stages. Funds that span multiple stages — especially those combining early stage, later stage, and buyout strategies — tend to manage significantly higher assets.
+
+This suggests that broad-stage or hybrid investment approaches are associated with larger fund sizes. Rather than pure early- or late-stage specialization, many of the top-performing fund types include a blend of stages, indicating greater flexibility and potentially broader appeal to investors.
+
+| Fund Type                                           | Average AUM (in Millions) |
+|----------------------------------------------------|---------------------------:|
+| Early Stage; Fund of Funds; Secondary; Buyout      | 3167.71                    |
+| Seed Stage; Early Stage; Later Stage; Secondary... | 2102.77                    |
+| Seed Stage; Early Stage; Later Stage; Fund of Funds| 1787.27                    |
+| Early Stage; Later Stage; LBO; MBO; Buyout         | 1777.40                    |
+| Early Stage; Real Estate                           | 1764.08                    |
+| ...                                                | ...                        |
+| Early Stage; Mezzanine; Debt                       | 28.42                      |
+| Early Stage; Secondary                             | 18.03                      |
+| Seed Stage; Early Stage; Fund of Funds             | 11.46                      |
+| Mezzanine; LBO; Real Estate                        | 11.43                      |
+| Seed Stage; Early Stage; Infrastructure/Proj Fin   | 4.81                       |
+
 
 
 
