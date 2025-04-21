@@ -71,7 +71,9 @@ This suggests that broad-stage or hybrid investment approaches are associated wi
 | Mezzanine; LBO; Real Estate                        | 11.43                      |
 | Seed Stage; Early Stage; Infrastructure/Proj Fin   | 4.81                       |
 
-
+### Imputation [TODO]
+“The Fund Industry Focus variable was excluded from modeling due to high cardinality, frequent multi-label entries, and a large number of rare or missing combinations, which made reliable feature engineering and interpretation difficult under time constraints
+I tried imputing with creating a column called 'Other' but there were too many 'other' values, so i created a missigness column. but then the indsutries had to be splut adn then multi-level enccdoed so for time condtraints i dropped this variable. only 1000 had avlues so this owuodlnt imapct a lot anyway i think
 
 
 # Framing a Prediction Problem
