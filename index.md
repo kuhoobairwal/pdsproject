@@ -5,14 +5,17 @@ title: Venture Capital Funding Analysis
 
 # Introduction
 
-Venture capital plays a vital role in fueling innovation, but who gets funded — and how much — remains an unequal game. This project investigates trends in VC fundraising across industries, firm types, and gender-focused funds using a dataset compiled from various sources. We explore whether company or firm characteristics can predict fundraising success.
+
 
 # Data Cleaning and Exploratory Data Analysis
 
-The raw dataset contained over 20,000 entries, which we cleaned by removing duplicate records, standardizing industry tags, and handling missing values. Key steps included:
+The raw dataset contained data for over 6000 funds, which was cleaned by handling missing values and standardizing existing ones. Key steps included:
 
-- Dropping records with no fundraising outcome
-- Standardizing fund type and gender tags
+- The inital datatset contained a 'Fund Open Date' column, which was used to create the newer 'Fund Age' column that stores the number of years that the VC fund has been active for. This transformation was done so that 'Fund Age' could directly  better analyse the performance of the VC fund. 
+- The inital dataset contained a 'Fund Invests in Multiple Rounds' coumn, which refers to when a fund invests more money in a company that has already received funding from them. This can be a strategic move to increase their stake, protect their ownership, or support the growth of a promising startup. However, on further analysis of this column, it had missing data for 5200/6200 firms. Hence, for the lack of complete data, this this column was dropped from the final dataset.
+- The initial dataset contained a 'Fund Status' column, which had 4 possible values, "Investing", "Divesting", "Raising" or "Liquidated". In fund management, investing means acquiring assets, divesting means selling existing assets, raising refers to acquiring new capital from investors and liquidating means shutting down the fund and selling all remaining assets. I created a numerical mapping for each of their 4 values for ease of analysis later in the project.
+-  
+
 - Converting dollar values to consistent formats
 
 ### Key Insights from EDA:
