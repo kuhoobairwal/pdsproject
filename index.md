@@ -61,4 +61,4 @@ Our final model used a **Random Forest Regressor** trained on engineered feature
 You can add images or charts in each section like this:
 
 ```markdown
-![EDA chart showing industry focus](assets/industry_chart.png)
+![EDA chart showing industry focus](AUM-boxplot.png)
