@@ -31,6 +31,16 @@ Doing visual analysis showed a couple different insights.
 - Most funds in the dataset are Early Stage funds. There are some funds that invest in a couple different stages as well. This also makes inutive sense beacuse there are lessser am9unt of funds with more money to do later stage invsting, as the later you go into the investment roudns, the hgihest the investmenet number becomes and can reach upto billions of dollars. 
 ![Plot showing stage ](fund-type-value-counts.png)
 
+– This scatter plot explores the relationship between the number of funds managed by a firm and its current assets under management (AUM). Each point represents a fund, color-coded by its age.
+
+<p align="center">
+  <img src="assets/aum_vs_funds_scatter.png" alt="Scatter plot of AUM vs Number of Funds with Fund Age coloring" width="700">
+</p>
+
+We observe a **slightly positive trend** — as the number of funds increases, the AUM tends to increase as well. However, the relationship is **weak and noisy**, with a wide spread of AUM values even among firms managing a similar number of funds.
+
+The color gradient suggests that **fund age does not strongly influence AUM**, though older funds (in yellow) are scattered throughout the range. This implies that factors beyond longevity and fund count may be more significant in driving asset accumulation.
+
 
 
 # Framing a Prediction Problem
