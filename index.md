@@ -24,12 +24,14 @@ The raw dataset contained data for over 6000 funds, which was cleaned by handlin
 
 
 ###  Insights from EDA:
-![AUM boxplot showing industry focus](AUM-boxplot.png)
+Doing visual analysis showed a couple different insights. 
+- Most funds are focused in the US, 2377. India is a far 2nd, with 213 firms. This makes intuitive sense beacuse most of VC money is present in the US. In fact, most of VC money goes to SF-based startups! [TODO]
+![Plot showing country focus](fund-country-focus.png)
+
+- Most funds in the dataset are Early Stage funds. There are some funds that invest in a couple different stages as well. This also makes inutive sense beacuse there are lessser am9unt of funds with more money to do later stage invsting, as the later you go into the investment roudns, the hgihest the investmenet number becomes and can reach upto billions of dollars. 
+![Plot showing stage ](fund-type-value-counts.png)
 
 
-- Most funds are concentrated in the US and Europe.
-- Women-focused funds manage more funds per firm but raise less capital on average.
-- Industry focus is skewed towards healthcare, fintech, and consumer sectors.
 
 # Framing a Prediction Problem
 
