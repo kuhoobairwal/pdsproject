@@ -1,7 +1,3 @@
----
-layout: default
-title: Venture Capital Analysis
----
 
 # Introduction
 
