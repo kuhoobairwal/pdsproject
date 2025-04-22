@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: Venture Capital Analysis
 ---
 
