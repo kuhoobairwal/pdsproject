@@ -48,10 +48,19 @@ The raw dataset initially contained data on over **6,000 venture capital funds**
 
 - I conducted initial visual analysis to understand the distribution of numerical variables. This revealed that several columns, including `AUM (Current)`, were **highly skewed** and contained significant outliers. Below are plots showing the boxplot and distribution of `AUM (Current)` before cleaning:
 
-<p align="center">
-  <img src="AUM-boxplot.png" alt="AUM Chart 1" width="600"/>
-  <img src="AUM-distribution.png" alt="AUM Chart 2" width="600"/>
-</p>
+<iframe
+ src="aum-raw-distribution.html"
+ width="800"
+ height="500"
+ frameborder="0"
+></iframe>
+
+<iframe
+ src="aum-raw-boxplot.html"
+ width="800"
+ height="500"
+ frameborder="0"
+></iframe>
 
 - To address these extreme outliers, I applied **IQR-based filtering** instead of the more common 3-standard-deviation rule. Because the AUM distribution was **right-skewed**, the mean and standard deviation were distorted by a few extremely large values. The IQR method uses the interquartile range to identify and filter out outliers more robustly. This resulted in a distribution that better reflects the **central tendency** of most funds.
 
