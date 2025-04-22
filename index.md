@@ -142,16 +142,41 @@ As a result, I opted to **drop `Fund Industry Focus` entirely** from the modelin
 
 # Framing a Prediction Problem
 
-We posed the following question:  
-**Can we predict how much capital a fund will raise based on its characteristics (industry, type, region, etc.)?**
+### Prediction Type:  
+This is a **regression problem**, where the goal is to predict a **continuous numerical value**: the total capital raised by a VC fund.
 
-We treated this as a **regression problem**, where the target variable is `Fund Amount Raised`, and predictors include:
+### Response Variable:
+The response variable is `Fund Amount Raised`. This was chosen because it serves as a direct measure of a fund’s **performance and credibility** from the perspective of **limited partners (LPs)**, such as institutional investors and endowments. 
 
-- Fund Type
-- Number of Funds per Firm
-- Industry Focus
-- Region
-- Gender/Impact Focus
+Although the dataset included a column called `Fund Amount Sought`, we chose **not to use it** for prediction. From the perspective of an LP making a funding decision, the amount a fund *wants* to raise is often **not publicly known** at the time of evaluation. It is fund-specific and can be aspirational, rather than predictive of actual outcomes. For this reason, it was excluded to avoid leakage and to align with what would be known at the "time of prediction."
+
+### Why This Question Matters:
+This prediction model can help LPs assess **which fund characteristics are linked to stronger fundraising outcomes**, potentially guiding their decisions when committing capital. It also contributes to a broader understanding of what types of VC funds tend to succeed in raising capital.
+
+
+### Evaluation Metric: R²
+
+We use **R² (coefficient of determination)** as the primary evaluation metric for our regression model. R² measures the proportion of variance in the target variable (`Fund Amount Raised`) that is explained by the features in the model.
+
+This metric was chosen over others because:
+- It is **intuitive to interpret**: an R² closer to 1 indicates a better fit.
+- It allows for **direct comparison between baseline and final models**.
+- It captures overall model performance without being affected by the scale of the prediction errors, which makes it more interpretable than raw error-based metrics like MSE or MAE for our purpose.
+
+
+### Time-of-Prediction Justification:
+All predictor variables used in the model are features that would be **available to a limited partner evaluating a fund** at the time it is raising capital. These include fund-level descriptors like:
+- Fund age
+- AUM (Current)
+- Fund Type (investment stage focus)
+- Fund Country Focus
+- Fund Status
+- Firm’s track record (e.g. number of funds)
+- Average Fund Size
+
+We **intentionally excluded** any features that are outcomes of the fundraising process or would only be known after the fact.
+
+
 
 # Baseline Model
 
