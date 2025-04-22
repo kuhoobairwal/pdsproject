@@ -50,24 +50,21 @@ The raw dataset initially contained data on over **6,000 venture capital funds**
 
 <iframe
  src="aum-raw-distribution.html"
- width="800"
- height="500"
- frameborder="0"
-></iframe>
-
-<iframe
  src="aum-raw-boxplot.html"
- width="800"
- height="500"
+ width="600"
  frameborder="0"
 ></iframe>
 
 - To address these extreme outliers, I applied **IQR-based filtering** instead of the more common 3-standard-deviation rule. Because the AUM distribution was **right-skewed**, the mean and standard deviation were distorted by a few extremely large values. The IQR method uses the interquartile range to identify and filter out outliers more robustly. This resulted in a distribution that better reflects the **central tendency** of most funds.
 
-<p align="center">
-  <img src="aum-cleaned-boxplot.png" alt="AUM Cleaned Chart 1" width="600"/>
-  <img src="aum-cleaned-dist.png" alt="AUM Cleaned Chart 2" width="600"/>
-</p>
+
+<iframe
+ src="aum-cleaned-distribution.html"
+ src="aum-cleaned-boxplot.html"
+ width="600"
+ frameborder="0"
+></iframe>
+
 
 - After these cleaning steps, the total number of observations was reduced to **4,820**, resulting in a cleaner and more reliable dataset for modeling and analysis.
 
