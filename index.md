@@ -50,14 +50,15 @@ The raw dataset initially contained data on over **6,000 venture capital funds**
 
 <iframe
  src="aum-raw-distribution.html"
- width="600"
+ width="800"
  height="600"
  frameborder="0"
 ></iframe>
 
 <iframe
  src="aum-raw-boxplot.html"
- width="600"
+ width="800"
+ height="600"
  frameborder="0"
 ></iframe>
 
@@ -65,14 +66,16 @@ The raw dataset initially contained data on over **6,000 venture capital funds**
 
 
 <iframe
- src="aum-cleaned-distribution.html"
- width="600"
+ src="aum-clean-distribution.html"
+ width="800"
  height="600"
  frameborder="0"
 ></iframe>
+
 <iframe
- src="aum-cleaned-boxplot.html"
- width="600"
+ src="aum-clean-boxplot.html"
+ width="800"
+ height="600"
  frameborder="0"
 ></iframe>
 
@@ -101,7 +104,7 @@ Most funds in the dataset are based in the **United States** (2,377), followed b
 
 <iframe
  src="fund-country-vc.html"
- width="600"
+ width="800"
  height="600"
  frameborder="0"
 ></iframe>
@@ -112,7 +115,7 @@ The majority of funds in the dataset are focused on **Early Stage** investments.
 
 <iframe
  src="fund-type-vc.html"
- width="600"
+ width="800"
  height="600"
  frameborder="0"
 ></iframe>
@@ -123,7 +126,7 @@ This scatter plot explores the relationship between the number of funds managed 
 
 <iframe
  src="funds_v_aum.html"
- width="600"
+ width="800"
  height="600"
  frameborder="0"
 ></iframe>
