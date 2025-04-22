@@ -38,17 +38,30 @@ These columns were selected based on their potential predictive value and their 
 
 # Data Cleaning and Exploratory Data Analysis
 
-The raw dataset contained data for over 6000 funds, which was cleaned by handling missing values and standardizing existing ones. Key steps included:
+## Data Cleaning Steps
 
-- The inital datatset contained a 'Fund Open Date' column, which was used to create the newer 'Fund Age' column that stores the number of years that the VC fund has been active for. This transformation was done so that 'Fund Age' could directly  better analyse the performance of the VC fund. 
-- The inital dataset contained a 'Fund Invests in Multiple Rounds' coumn, which refers to when a fund invests more money in a company that has already received funding from them. This can be a strategic move to increase their stake, protect their ownership, or support the growth of a promising startup. However, on further analysis of this column, it had missing data for 5200/6200 firms. Hence, for the lack of complete data, this this column was dropped from the final dataset.
-- I did some visual analysis to better understand the distribution of some columns, and this led me to find out that some of the data was highly skewed and contained significant outliers. An example of this can be seen with the 'AUM' column which stores the Assets Under Management of a fund in millions.
-<img src="AUM-boxplot.png" alt="AUM Chart 1" width="400"/>
-<img src="AUM-distribution.png" alt="AUM Chart 2" width="400"/>
--  To handle extreme outliers in the AUM (Assets Under Management) variable, I applied IQR-based filtering rather than the standard three-standard-deviation rule. The AUM distribution was highly right-skewed, with a small number of funds reporting exceptionally large values that inflated both the mean and standard deviation. Using the IQR method allowed for a more robust identification of outliers based on the interquartile range, rather than being distorted by extreme values. This filtering reduced the impact of unusually large AUM values and resulted in a dataset that more accurately reflects the central tendency of most funds, improving the quality of subsequent visualizations and analysis. After cleaning the data, the resulting distribution was a lot more symmetric, as can be seen below.
-<img src="aum-cleaned-boxplot.png" alt="AUM Cleaned Chart 1" width="400"/>
-<img src="aum-cleaned-dist.png" alt="AUM Cleaned Chart 2" width="400"/>
--  After data cleaning steps, the total number of oobservations dropped to 4820.
+The raw dataset initially contained data on over **6,000 venture capital funds**, which required substantial cleaning and transformation to ensure consistency and usability. Key steps included handling missing values, standardizing existing features, and creating derived variables from timestamps.
+
+- The original dataset included a `Fund Open Date` column, which was used to create a new variable: `Fund Age`. This feature calculates the number of years a fund has been active, allowing for a more interpretable and relevant metric when evaluating a fund's track record.
+
+- The dataset also contained a column called `Fund Invests in Multiple Rounds`, referring to cases where a VC fund reinvests in startups it has already funded. This can be a strategic move to protect equity or support growth. However, this column had over **5,200 missing values out of 6,200**, making it too incomplete to be useful. As a result, it was dropped from the final dataset.
+
+- I conducted initial visual analysis to understand the distribution of numerical variables. This revealed that several columns, including `AUM (Current)`, were **highly skewed** and contained significant outliers. Below are plots showing the boxplot and distribution of `AUM (Current)` before cleaning:
+
+<p align="center">
+  <img src="AUM-boxplot.png" alt="AUM Chart 1" width="600"/>
+  <img src="AUM-distribution.png" alt="AUM Chart 2" width="600"/>
+</p>
+
+- To address these extreme outliers, I applied **IQR-based filtering** instead of the more common 3-standard-deviation rule. Because the AUM distribution was **right-skewed**, the mean and standard deviation were distorted by a few extremely large values. The IQR method uses the interquartile range to identify and filter out outliers more robustly. This resulted in a distribution that better reflects the **central tendency** of most funds.
+
+<p align="center">
+  <img src="aum-cleaned-boxplot.png" alt="AUM Cleaned Chart 1" width="600"/>
+  <img src="aum-cleaned-dist.png" alt="AUM Cleaned Chart 2" width="600"/>
+</p>
+
+- After these cleaning steps, the total number of observations was reduced to **4,820**, resulting in a cleaner and more reliable dataset for modeling and analysis.
+
 
 ### Preview of Cleaned Data
 
@@ -62,37 +75,48 @@ The raw dataset contained data for over 6000 funds, which was cleaned by handlin
 
 
 
+## Insights from Exploratory Data Analysis
 
-###  Insights from EDA:
-Doing visual analysis showed a couple different insights. 
-- Most funds are focused in the US, 2377. India is a far 2nd, with 213 firms. This makes intuitive sense beacuse most of VC money is present in the US. In fact, most of VC money goes to SF-based startups! [TODO]
+Visual analysis of the dataset provided several key insights into the structure and characteristics of venture capital funds.
+
+### 🌍 Fund Country Focus
+
+Most funds in the dataset are based in the **United States** (2,377), followed by **India** with 213 funds. This trend aligns with expectations, as the U.S. has long been the epicenter of venture capital activity—particularly in regions like Silicon Valley and San Francisco.
+
 ![Plot showing country focus](fund-country-focus.png)
 
-- Most funds in the dataset are Early Stage funds. There are some funds that invest in a couple different stages as well. This also makes inutive sense beacuse there are lessser am9unt of funds with more money to do later stage invsting, as the later you go into the investment roudns, the hgihest the investmenet number becomes and can reach upto billions of dollars. 
-![Plot showing stage ](fund-type-value-counts.png)
+### 🚀 Fund Type (Stage Focus)
 
-– This scatter plot explores the relationship between the number of funds managed by a firm and its current assets under management (AUM). Each point represents a fund, color-coded by its age.
+The majority of funds in the dataset are focused on **Early Stage** investments. Some funds invest across multiple stages (e.g., Seed + Early + Late), but **Late Stage-only funds are relatively rare**. This reflects real-world dynamics: as investment rounds progress, the required check sizes grow substantially—often into the hundreds of millions or billions—making later-stage investing accessible to fewer firms.
+
+![Plot showing stage](fund-type-value-counts.png)
+
+### 📈 AUM vs. Number of Funds (Colored by Fund Age)
+
+This scatter plot explores the relationship between the number of funds managed by a firm and its current assets under management (AUM). Each point represents a fund and is color-coded by its age.
 
 <p align="center">
-  <img src="aum_vs_funds_scatter.png" alt="Scatter plot of AUM vs Number of Funds with Fund Age coloring" width="700">
+  <img src="aum_vs_funds_scatter.png" alt="Scatter plot of AUM vs Number of Funds with Fund Age coloring">
 </p>
 
-We observe a **slightly positive trend** — as the number of funds increases, the AUM tends to increase as well. However, the relationship is **weak and noisy**, with a wide spread of AUM values even among firms managing a similar number of funds.
+There is a **slightly positive trend**: as the number of funds managed increases, AUM tends to rise as well. However, the relationship is **weak and noisy**, with wide variation in AUM even among firms managing the same number of funds.
 
-The color gradient suggests that **fund age does not strongly influence AUM**, though older funds (in yellow) are scattered throughout the range. This implies that factors beyond longevity and fund count may be more significant in driving asset accumulation.
+Color gradients suggest that **fund age is not a strong determinant of AUM**. Older funds appear throughout the AUM spectrum, indicating that factors like investment strategy, fund type, or firm reputation may be more influential than time alone.
 
-### Type vs AUM
-This grouped table highlights the average AUM for funds operating at different investment stages. Funds that span multiple stages — especially those combining early stage, later stage, and buyout strategies — tend to manage significantly higher assets.
 
-This suggests that broad-stage or hybrid investment approaches are associated with larger fund sizes. Rather than pure early- or late-stage specialization, many of the top-performing fund types include a blend of stages, indicating greater flexibility and potentially broader appeal to investors.
+### Grouped Table: Fund Type vs. Average AUM
+
+This grouped table highlights the **average assets under management (AUM)** for funds operating at different investment stages. Funds that span **multiple stages**—especially those combining early stage, later stage, and buyout strategies—tend to manage significantly higher capital.
+
+This suggests that **broad-stage or hybrid investment approaches** are associated with larger fund sizes. Rather than specializing solely in early or late stage, many of the highest-AUM fund types include a blend of strategies, which may signal greater flexibility, experience, or appeal to institutional investors.
 
 | Fund Type                                           | Average AUM (in Millions) |
 |----------------------------------------------------|---------------------------:|
-| Early Stage; Fund of Funds; Secondary; Buyout      | 3167.71                    |
-| Seed Stage; Early Stage; Later Stage; Secondary... | 2102.77                    |
-| Seed Stage; Early Stage; Later Stage; Fund of Funds| 1787.27                    |
-| Early Stage; Later Stage; LBO; MBO; Buyout         | 1777.40                    |
-| Early Stage; Real Estate                           | 1764.08                    |
+| Early Stage; Fund of Funds; Secondary; Buyout      | 3,167.71                   |
+| Seed Stage; Early Stage; Later Stage; Secondary... | 2,102.77                   |
+| Seed Stage; Early Stage; Later Stage; Fund of Funds| 1,787.27                   |
+| Early Stage; Later Stage; LBO; MBO; Buyout         | 1,777.40                   |
+| Early Stage; Real Estate                           | 1,764.08                   |
 | ...                                                | ...                        |
 | Early Stage; Mezzanine; Debt                       | 28.42                      |
 | Early Stage; Secondary                             | 18.03                      |
@@ -100,10 +124,21 @@ This suggests that broad-stage or hybrid investment approaches are associated wi
 | Mezzanine; LBO; Real Estate                        | 11.43                      |
 | Seed Stage; Early Stage; Infrastructure/Proj Fin   | 4.81                       |
 
-### Imputation [TODO]
-“The Fund Industry Focus variable was excluded from modeling due to high cardinality, frequent multi-label entries, and a large number of rare or missing combinations, which made reliable feature engineering and interpretation difficult under time constraints
-I tried imputing with creating a column called 'Other' but there were too many 'other' values, so i created a missigness column. but then the indsutries had to be splut adn then multi-level enccdoed so for time condtraints i dropped this variable. only 1000 had avlues so this owuodlnt imapct a lot anyway i think
+This breakdown supports the broader finding that **larger funds often diversify across multiple stages**, likely due to the increased capital demands and longer investment horizons involved in managing a more flexible portfolio.
 
+
+### Imputation
+
+For this project, I made selective decisions about how to handle missing data, balancing data quality with time constraints and model interpretability.
+
+A notable variable, `Fund Industry Focus`, was **excluded from modeling** due to several challenges:
+- It had **multi-label values** (e.g., "Healthcare; Fintech; Consumer"), requiring multi-hot encoding
+- It showed **extremely high cardinality** with hundreds of unique industry combinations
+- Fewer than **1,000 out of 4,800 rows** had non-missing values, making imputation unreliable
+- Creating a catch-all `'Other'` category resulted in too many rows falling into this group
+- Feature engineering for this column would have required extensive parsing, cleaning, and transformation that wasn't feasible within the project's time constraints
+
+As a result, I opted to **drop `Fund Industry Focus` entirely** from the modeling dataset, instead of doing imputation. This decision was supported by the fact that most of the dataset (~80%) was missing industry data anyway, meaning the exclusion would not significantly affect model performance.
 
 # Framing a Prediction Problem
 
