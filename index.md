@@ -50,6 +50,11 @@ The raw dataset initially contained data on over **6,000 venture capital funds**
 
 <iframe
  src="aum-raw-distribution.html"
+ width="600"
+ frameborder="0"
+></iframe>
+
+<iframe
  src="aum-raw-boxplot.html"
  width="600"
  frameborder="0"
@@ -60,11 +65,14 @@ The raw dataset initially contained data on over **6,000 venture capital funds**
 
 <iframe
  src="aum-cleaned-distribution.html"
+ width="600"
+ frameborder="0"
+></iframe>
+<iframe
  src="aum-cleaned-boxplot.html"
  width="600"
  frameborder="0"
 ></iframe>
-
 
 - After these cleaning steps, the total number of observations was reduced to **4,820**, resulting in a cleaner and more reliable dataset for modeling and analysis.
 
@@ -89,21 +97,31 @@ Visual analysis of the dataset provided several key insights into the structure 
 
 Most funds in the dataset are based in the **United States** (2,377), followed by **India** with 213 funds. This trend aligns with expectations, as the U.S. has long been the epicenter of venture capital activity—particularly in regions like Silicon Valley and San Francisco.
 
-![Plot showing country focus](fund-country-focus.png)
+<iframe
+ src="fund-country-vc.html"
+ width="600"
+ frameborder="0"
+></iframe>
 
 ### 🚀 Fund Type (Stage Focus)
 
 The majority of funds in the dataset are focused on **Early Stage** investments. Some funds invest across multiple stages (e.g., Seed + Early + Late), but **Late Stage-only funds are relatively rare**. This reflects real-world dynamics: as investment rounds progress, the required check sizes grow substantially—often into the hundreds of millions or billions—making later-stage investing accessible to fewer firms.
 
-![Plot showing stage](fund-type-value-counts.png)
+<iframe
+ src="fund-type-vc.html"
+ width="600"
+ frameborder="0"
+></iframe>
 
 ### 📈 AUM vs. Number of Funds (Colored by Fund Age)
 
 This scatter plot explores the relationship between the number of funds managed by a firm and its current assets under management (AUM). Each point represents a fund and is color-coded by its age.
 
-<p align="center">
-  <img src="aum_vs_funds_scatter.png" alt="Scatter plot of AUM vs Number of Funds with Fund Age coloring">
-</p>
+<iframe
+ src="funds_v_aum.html"
+ width="600"
+ frameborder="0"
+></iframe>
 
 There is a **slightly positive trend**: as the number of funds managed increases, AUM tends to rise as well. However, the relationship is **weak and noisy**, with wide variation in AUM even among firms managing the same number of funds.
 
