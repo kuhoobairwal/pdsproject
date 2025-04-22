@@ -1,3 +1,7 @@
+---
+layout: page
+title: Venture Capital Analysis
+---
 
 # Introduction
 
