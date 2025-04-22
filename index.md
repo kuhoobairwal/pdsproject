@@ -174,17 +174,68 @@ All predictor variables used in the model are features that would be **available
 - Firm’s track record (e.g. number of funds)
 - Average Fund Size
 
-We **intentionally excluded** any features that are outcomes of the fundraising process or would only be known after the fact.
-
+We **intentionally excluded** any features, like 'Fund Amount Sought' that are outcomes of the fundraising process or would only be known after the fact.
 
 
 # Baseline Model
 
-Our baseline model was a simple **mean predictor**, where every fund was assumed to raise the same amount — the overall average. This allowed us to benchmark performance.
+## Model Information:
+The baseline model is a **Lasso regression** model trained on an initial set of features, without any non-linear transformations or advanced feature engineering. It was designed to serve as a simple benchmark, which I iterated upon in the final model.
 
-### Baseline RMSE:
-`$XX.XX million`  
-*(Fill this in with your value)*
+## Features Used:
+
+
+#### Quantitative:
+- `AUM (Current)`
+- `Firm # of Funds`
+- `Average Fund Size (MM)`
+- `Fund Age`
+
+These were treated as continuous numerical variables and scaled using `StandardScaler`.
+
+
+#### Nominal Categorical: 
+- `Fund Status`
+- `Fund Country Focus`
+
+These categorical variables were one-hot encoded using `OneHotEncoder(handle_unknown='ignore')`.  
+
+The preprocessing pipeline used a `ColumnTransformer` to scale numeric features and encode categorical ones:
+
+```python
+preprocessor = ColumnTransformer(transformers=[
+    ('cat', OneHotEncoder(handle_unknown='ignore'), ['Fund Status', 'Fund Country Focus', 'Fund Type']),
+    ('num', StandardScaler(), numeric_cols2)
+])
+```
+These steps were combined into a scikit-learn pipeline with a Lasso regressor (alpha=0.1):
+```python
+pipeline = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('regressor', Lasso(alpha=0.1))
+])
+```
+
+
+
+### Evaluation Metric:
+The model was evaluated using R², which measures the proportion of variance in `Fund Amount Raised` explained by the model. R² is intuitive, allows for direct comparison across models, and is standard for regression problems.
+
+- Train R² = 0.6991
+- Test R² = 0.7022
+
+The R² values for the baseline model are quite close on both the training and test sets, which suggests that the model is not overfitting and has reasonably good generalization performance. However, this setup still uses relatively basic features and encodings.
+
+### Summary:
+
+The baseline model establishes a strong starting point using interpretable fund-level features. It avoids data leakage by only using information available at the time of prediction. Although it does not yet capture complex relationships in the data, it sets a fair benchmark for evaluating the added value of the final model's more advanced transformations.
+
+To improve upon this baseline, the final model will:
+- Use polynomial features to capture non-linear relationships
+- Incorporate a multi-label encoder for Fund Type
+- Apply hyperparameter tuning using GridSearchCV to optimize alpha and feature transformations
+These steps aim to increase the model’s predictive power while maintaining interpretability
+
 
 # Final Model
 
