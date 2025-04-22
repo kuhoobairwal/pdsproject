@@ -1,10 +1,39 @@
----
-layout: default
-title: Venture Capital Funding Analysis
----
 
 # Introduction
 
+This project explores the venture capital (VC) fundraising landscape using a dataset of over **3,800 individual funds**. The data includes detailed information on each fund's characteristics—such as its age, investment stage, country focus, associated firm size, and more.
+
+### The Central Question:
+> **Can we predict how much capital a VC fund will raise based on its fund structure, firm characteristics, and strategic focus?**
+
+Understanding which factors drive fundraising success is crucial for investors, founders, and policy-makers alike. Venture capital shapes the flow of innovation and access to opportunity—yet the fundraising process often seems opaque. This project aims to shed light on the patterns behind successful capital raises, using data-driven modeling to reveal which characteristics actually matter.
+
+This analysis is particularly relevant to **limited partners (LPs)**—such as institutional investors, endowments, and high-net-worth individuals—who allocate capital across multiple venture firms. By examining how fund-level characteristics relate to fundraising outcomes, LPs can better assess a firm's track record and compare it against industry-wide patterns. This model may support more informed decision-making when evaluating which VC firms demonstrate consistent fundraising success.
+
+
+## Dataset Overview
+
+- **Total number of observations (rows):** 3,856 funds  [] todo
+- **Source:** Compiled from VC and private equity databases  
+- **Time span:** Fund launches from the 2000s to present  
+- **Focus:** Fund-level data, not startup-level data
+
+
+## Relevant Columns for Prediction
+
+| Column Name              | Description |
+|--------------------------|-------------|
+| `Fund Amount Raised`     | **Target variable** — total capital raised by the fund (in millions) |
+| `AUM (Current)`          | Assets under management for the firm managing the fund |
+| `Fund Age`               | Age of the fund (in years) |
+| `Firm # of Funds`        | Number of total funds the firm has launched |
+| `Average Fund Size (MM)` | Current average fund size at the firm |
+| `Fund Type`              | Investment stage focus (e.g., Early Stage, Buyout, Mixed) — multi-label |
+| `Fund Country Focus`     | Geographic target of investments (e.g., US, Europe) |
+| `Fund Status`            | Whether the fund is currently raising, inevesting or closed |
+| `Fund Industry Focus`    | Industry sectors the fund invests in (e.g., healthcare, tech) — multi-label |
+
+These columns were selected based on their potential predictive value and their availability **prior to fundraising**, to avoid data leakage.
 
 
 # Data Cleaning and Exploratory Data Analysis
