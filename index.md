@@ -239,25 +239,97 @@ These steps aim to increase the model’s predictive power while maintaining int
 
 # Final Model
 
-Our final model used a **Random Forest Regressor** trained on engineered features such as log-transformed fund size and encoded industry focus. We tuned hyperparameters using cross-validation and reduced overfitting through pruning and feature selection.
+## Additional Feature Engineering
 
-### Final RMSE:
-`$XX.XX million`  
-*(Add your model performance here)*
+In the final model, I added new features that better capture **non-linear relationships** and more meaningfully represent fund characteristics. These features were added because they reflect how fundraising works in the real world—for example, a fund’s age and its AUM are likely to influence how much capital it can raise, and not necessarily in a straight-line way. I included these based on common-sense patterns in venture capital.
 
-### Feature Importance:
-- `Industry` and `Fund Type` had the strongest predictive power
-- Gender-focused funds had slightly lower predicted outcomes, matching real-world disparities
+### New Features Added:
+
+- **Polynomial features of `AUM (Current)` and `Fund Age`**  
+  These two variables are central to the prediction task. `AUM` reflects the firm’s financial strength, while `Fund Age` captures credibility and track record. The relationship between these variables and fundraising success is likely **nonlinear**—for instance, a small increase in AUM might make a big difference for younger firms, but not for older ones. Polynomial transformations help model these interactions.
+
+- **Multi-label encoded `Fund Type`**  
+  Instead of treating `Fund Type` as a single-label category, the final model uses a **multi-hot encoding**, using `MultiLabelBinarizer()`, to capture multiple stage strategies (e.g., Seed + Later Stage). This better reflects real-world behavior, as many funds invest across different stages. 
+
+  - **Reuse of key features from the baseline model**  
+  Several informative features from the baseline model were retained in the final version, including:
+  - `AUM (Current)`
+  - `Fund Age`
+  - `Firm # of Funds`
+  - `Average Fund Size (MM)`
+  - `Fund Country Focus`
+  - `Fund Status`
+  
+  These were preserved because they provide core information about a fund’s financial size, track record, and geographic strategy. Numerical features were scaled using `StandardScaler`, while categorical variables (`Fund Country Focus`, `Fund Status`) were one-hot encoded to maintain interpretability and allow the model to flexibly represent regional or status-based differences.
+
+
+## Model and Hyperparameter Tuning
+
+The final model uses **Lasso Regression**, which reduces multicollinearity as well as unnecessary complexity. It performs **automatic feature selection** by shrinking irrelevant coefficients to zero. This improves interpretability and reduces overfitting.
+
+### Hyperparameters
+- `alpha`: Controls the strength of regularization.  
+- `degree`: The degree of the polynomial features applied to `AUM` and `Fund Age`.
+
+I used `GridSearchCV` with 5-fold cross-validation on the training set to identify the best model configuration. My parameter search spanned:
+
+```python
+param_grid = {
+    'preprocessing__poly_feats__poly__degree': [1, 2, 3, 4, 5],
+    'model__alpha': [0.5, 1, 3, 5, 10]
+}
+```
+
+Best Hyperparameters found from GridSeach:
+- `alpha`: 0.5  
+- `polynomial degree`: 5
+
+
+## Preprocessing Summary
+All feature transformations were combined into a single pipeline using scikit-learn’s ColumnTransformer. Polynomial features were generated for AUM (Current) and Fund Age, while all numeric variables were scaled. Categorical features (Fund Status, Fund Country Focus) were one-hot encoded, and Fund Type was multi-hot encoded using a custom transformer to reflect its multi-label structure. This setup ensured clean, consistent preprocessing during training and cross-validation.
+
+## Results
+
+The final model achieved improved performance over the baseline model on both the training and test sets:
+
+| Model         | Train R² | Test R² |
+|---------------|----------|---------|
+| Baseline      | 0.6991   | 0.7022  |
+| **Final Model** | **0.7108**   | **0.7134**  |
+
+While the improvement in R² is modest, it reflects meaningful gains in model fit. The final model captures slightly more variance in `Fund Amount Raised`, likely due to the added nonlinear interactions and richer categorical encodings.
+
+This improvement came without overfitting: the training and test R² values remain closely aligned. The model generalizes well and benefits from regularization through Lasso, which helps reduce the impact of less informative features.
+
+## Conclusion
+
+This project allowed me to explore the fundraising landscape of venture capital (VC) firms through the lens of data. By building a regression model to predict how much capital a VC fund will raise, I gained a deeper understanding of the many fund-level and firm-level characteristics that contribute to fundraising success—such as AUM, fund age, geographic focus, and investment stage strategies. 
+
+Beyond the modeling itself, this project introduced me to real-world venture dynamics and helped me appreciate how complex and multifaceted fund performance can be. It also deepened my understanding of key machine learning techniques, including feature engineering, regularization, and model evaluation, as well as how to think critically about the data generating process when designing predictive models.
+
+### Next Steps
+
+I’d love to explore additional factors that could improve prediction accuracy or offer deeper insights into fund success, such as:
+- **Sentiment analysis** of fund press releases, portfolio news, or investor comments
+- **More detailed industry focus**, breaking down sectors to see which strategies are over- or underperforming
+- **Team composition and diversity**, including gender representation among general partners and investment committees
+- **Longitudinal modeling**, tracking performance across fundraising cycles or fund vintages
+
+There’s a lot of potential to build richer, more nuanced models that don’t just predict outcomes but also inform strategy for both VC firms and limited partners.
 
 ---
 
-You can add images or charts in each section like this:
+## References
+
+Here are a few academic and industry sources that informed my understanding of VC fundraising and performance factors:
+
+- Kaplan, S. N., & Schoar, A. (2005). [**Private equity performance: Returns, persistence, and capital flows**](https://doi.org/10.1016/j.jfineco.2004.05.003). *Journal of Finance*  
+- Gompers, P., Kaplan, S. N., & Mukharlyamov, V. (2016). [**What do private equity firms say they do?**](https://www.nber.org/papers/w21133). *NBER Working Paper*  
+- Lerner, J., & Nanda, R. (2020). [**Venture Capital’s Role in Financing Innovation: What We Know and How Much We Still Need to Learn**](https://doi.org/10.3386/w27492). *Harvard Business School/NBER*  
+- PitchBook Data. [**VC Fundraising Trends**](https://pitchbook.com/news/reports)  
+- NVCA Yearbook. [**National Venture Capital Association Yearbook (latest edition)**](https://nvca.org/research/nvca-yearbook/)
 
 
-![EDA chart showing industry focus](AUM-boxplot.png)
-![AUM boxplot showing industry focus](AUM-distribution.png)
-<img src="AUM-boxplot.png" alt="AUM Chart 1" width="600"/>
-<img src="AUM-distribution.png" alt="AUM Chart 2" width="600"/>
 
 
 
